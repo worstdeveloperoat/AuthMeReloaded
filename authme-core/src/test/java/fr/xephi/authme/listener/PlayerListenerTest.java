@@ -28,7 +28,6 @@ import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
-import org.bukkit.event.entity.EntityAirChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -51,7 +50,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.InventoryView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -209,10 +207,8 @@ class PlayerListenerTest {
         withServiceMock(listenerService)
             .check(listener::onPlayerShear, PlayerShearEntityEvent.class)
             .check(listener::onPlayerFish, PlayerFishEvent.class)
-            .check(listener::onPlayerSwapHandItems, PlayerSwapHandItemsEvent.class)
             .check(listener::onPlayerBedEnter, PlayerBedEnterEvent.class)
             .check(listener::onPlayerDropItem, PlayerDropItemEvent.class)
-            .check(listener::onPlayerAirChange, EntityAirChangeEvent.class)
             .check(listener::onPlayerHitPlayerEvent, EntityDamageByEntityEvent.class)
             .check(listener::onPlayerConsumeItem, PlayerItemConsumeEvent.class)
             .check(listener::onPlayerInteract, PlayerInteractEvent.class)

@@ -23,11 +23,20 @@ public interface EventRegistrationAdapter {
      * Returns the core listeners shared by all platforms.
      */
     static List<Class<? extends Listener>> getCommonListeners() {
-        return List.of(
+        List<Class<? extends Listener>> listeners = new ArrayList<>(List.of(
             PlayerListener.class,
             BlockListener.class,
             EntityListener.class,
-            ServerListener.class);
+            ServerListener.class));
+
+        if (fr.xephi.authme.util.Utils.isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
+            listeners.add(fr.xephi.authme.listener.ModernPlayerListener.class);
+        }
+        if (fr.xephi.authme.util.Utils.isClassLoaded("org.bukkit.event.entity.EntityAirChangeEvent")) {
+            listeners.add(fr.xephi.authme.listener.ModernPlayerAirChangeListener.class);
+        }
+
+        return listeners;
     }
 
     @SafeVarargs

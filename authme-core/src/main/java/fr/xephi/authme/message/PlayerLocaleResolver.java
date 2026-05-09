@@ -35,7 +35,16 @@ public final class PlayerLocaleResolver {
     public static String resolveLanguage(Settings settings, CommandSender sender) {
         if (settings != null && sender instanceof Player player
                 && settings.getProperty(PluginSettings.PER_PLAYER_LOCALE)) {
-            return toLanguageCode(player.getLocale());
+            try {
+                return toLanguageCode(player.getLocale());
+            } catch (NoSuchMethodError e) {
+                try {
+                    Object spigot = player.getClass().getMethod("spigot").invoke(player);
+                    return toLanguageCode((String) spigot.getClass().getMethod("getLocale").invoke(spigot));
+                } catch (Exception ex) {
+                    return null;
+                }
+            }
         }
         return null;
     }
